@@ -131,8 +131,24 @@ export default function ProductList() {
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
       {products.map((product) => (
         <div key={product.id} className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition">
-          <div className={`h-48 bg-gradient-to-br ${getCategoryColor(product.category)} rounded-lg mb-4 flex items-center justify-center`}>
-            <span className="text-4xl">{getCategoryIcon(product.category)}</span>
+          <div className="h-48 bg-gray-100 rounded-lg mb-4 overflow-hidden">
+            {product.main_image ? (
+              <img 
+                src={product.main_image} 
+                alt={product.name}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                  // 에러 시 대체 아이콘 표시
+                  const fallback = target.nextElementSibling as HTMLElement;
+                  if (fallback) fallback.style.display = 'flex';
+                }}
+              />
+            ) : null}
+            <div className={`h-full bg-gradient-to-br ${getCategoryColor(product.category)} rounded-lg flex items-center justify-center`} style={{ display: product.main_image ? 'none' : 'flex' }}>
+              <span className="text-4xl">{getCategoryIcon(product.category)}</span>
+            </div>
           </div>
           <div className="space-y-2">
             <h3 className="text-xl font-semibold">{product.name}</h3>
