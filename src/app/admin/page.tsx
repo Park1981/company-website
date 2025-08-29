@@ -23,11 +23,21 @@ interface Product {
   created_at: string
 }
 
+interface Delivery {
+  id: number
+  client: string
+  product: string
+  status: string
+  delivery_date: string
+  amount: number
+}
+
 export default function AdminPage() {
   const [contacts, setContacts] = useState<Contact[]>([])
   const [products, setProducts] = useState<Product[]>([])
+  const [deliveries, setDeliveries] = useState<Delivery[]>([])
   const [loading, setLoading] = useState(true)
-  const [activeTab, setActiveTab] = useState<'contacts' | 'products'>('contacts')
+  const [activeTab, setActiveTab] = useState<'contacts' | 'products' | 'deliveries'>('contacts')
 
   useEffect(() => {
     fetchData()
@@ -35,19 +45,24 @@ export default function AdminPage() {
 
   const fetchData = async () => {
     try {
-      const [contactsRes, productsRes] = await Promise.all([
+      const [contactsRes, productsRes, deliveriesRes] = await Promise.all([
         fetch('/api/contact'),
-        fetch('/api/products')
+        fetch('/api/products'),
+        fetch('https://unitech-backend-api.onrender.com/api/deliveries')
       ])
 
       const contactsData = await contactsRes.json()
       const productsData = await productsRes.json()
+      const deliveriesData = await deliveriesRes.json()
 
       if (contactsData.success) {
         setContacts(contactsData.data)
       }
       if (productsData.success) {
         setProducts(productsData.data)
+      }
+      if (deliveriesData.success) {
+        setDeliveries(deliveriesData.data)
       }
     } catch (error) {
       console.error('데이터 로딩 에러:', error)
@@ -131,7 +146,7 @@ export default function AdminPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Statistics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <div className="bg-white p-6 rounded-lg shadow-sm">
             <div className="flex items-center">
               <div className="p-2 bg-blue-100 rounded-lg">
@@ -158,13 +173,25 @@ export default function AdminPage() {
 
           <div className="bg-white p-6 rounded-lg shadow-sm">
             <div className="flex items-center">
+              <div className="p-2 bg-purple-100 rounded-lg">
+                <span className="text-2xl">🚛</span>
+              </div>
+              <div className="ml-4">
+                <p className="text-sm text-gray-600">납품 건수</p>
+                <p className="text-2xl font-bold text-gray-900">{deliveries.length}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white p-6 rounded-lg shadow-sm">
+            <div className="flex items-center">
               <div className="p-2 bg-yellow-100 rounded-lg">
                 <span className="text-2xl">⚡</span>
               </div>
               <div className="ml-4">
-                <p className="text-sm text-gray-600">신규 문의</p>
+                <p className="text-sm text-gray-600">진행 중 납품</p>
                 <p className="text-2xl font-bold text-gray-900">
-                  {contacts.filter(c => c.status === 'new').length}
+                  {deliveries.filter(d => d.status === '진행중').length}
                 </p>
               </div>
             </div>
@@ -194,6 +221,16 @@ export default function AdminPage() {
                 }`}
               >
                 제품 관리 ({products.length})
+              </button>
+              <button
+                onClick={() => setActiveTab('deliveries')}
+                className={`py-4 px-6 text-sm font-medium border-b-2 ${
+                  activeTab === 'deliveries'
+                    ? 'border-blue-500 text-blue-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                }`}
+              >
+                🚛 납품 관리 ({deliveries.length})
               </button>
             </nav>
           </div>
@@ -290,6 +327,90 @@ export default function AdminPage() {
                         </div>
                       </div>
                     ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {activeTab === 'deliveries' && (
+              <div>
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-lg font-semibold">🚛 납품 관리</h3>
+                  <div className="bg-gradient-to-r from-purple-100 to-blue-100 px-3 py-1 rounded-full">
+                    <span className="text-sm font-medium text-purple-700">
+                      📡 Render 백엔드 연동
+                    </span>
+                  </div>
+                </div>
+                {deliveries.length === 0 ? (
+                  <div className="text-center py-8">
+                    <p className="text-gray-500 mb-2">납품 데이터를 불러오는 중...</p>
+                    <p className="text-sm text-gray-400">Render API 서버에서 데이터를 가져옵니다</p>
+                  </div>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full divide-y divide-gray-200">
+                      <thead className="bg-gray-50">
+                        <tr>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            고객사
+                          </th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            제품명
+                          </th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            상태
+                          </th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            납품예정일
+                          </th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            계약금액
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white divide-y divide-gray-200">
+                        {deliveries.map((delivery) => (
+                          <tr key={delivery.id} className="hover:bg-gray-50">
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <div className="flex items-center">
+                                <div className="text-sm font-medium text-gray-900">{delivery.client}</div>
+                              </div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                              {delivery.product}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                                delivery.status === '진행중' 
+                                  ? 'bg-yellow-100 text-yellow-800' 
+                                  : delivery.status === '완료'
+                                  ? 'bg-green-100 text-green-800'
+                                  : 'bg-gray-100 text-gray-800'
+                              }`}>
+                                {delivery.status}
+                              </span>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                              {new Date(delivery.delivery_date).toLocaleDateString('ko-KR')}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                              {new Intl.NumberFormat('ko-KR', {
+                                style: 'currency',
+                                currency: 'KRW'
+                              }).format(delivery.amount)}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                    <div className="mt-4 p-3 bg-blue-50 rounded-lg">
+                      <p className="text-sm text-blue-700">
+                        💡 <strong>이 데이터는 Render 백엔드 서버에서 실시간으로 가져옵니다!</strong>
+                        <br />
+                        API URL: <code className="bg-white px-1 rounded">https://unitech-backend-api.onrender.com/api/deliveries</code>
+                      </p>
+                    </div>
                   </div>
                 )}
               </div>
