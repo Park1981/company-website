@@ -5,11 +5,20 @@ import toast from 'react-hot-toast'
 
 interface Product {
   id: number
+  product_id: string
   name: string
-  description: string
   category: string
-  price: number | null
-  image_url: string | null
+  main_image: string
+  images: string[]
+  index_description: string
+  description: string
+  details: string[]
+  specifications: { label: string; value: string }[]
+  temperature_range?: string | null
+  humidity_range?: string | null
+  capacity?: string | null
+  standards: string[]
+  download_url?: string | null
   is_active: boolean
   created_at: string
 }
@@ -43,22 +52,17 @@ export default function ProductList() {
     }
   }
 
-  const formatPrice = (price: number | null) => {
-    if (price === null) return '문의'
-    return new Intl.NumberFormat('ko-KR', {
-      style: 'currency',
-      currency: 'KRW'
-    }).format(price)
-  }
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case '제조 솔루션':
+      case 'chamber':
         return 'from-blue-100 to-blue-200 text-blue-900'
-      case 'IT 솔루션':
+      case 'equipment':
         return 'from-green-100 to-green-200 text-green-700'
-      case '컨설팅':
+      case 'testing':
         return 'from-purple-100 to-purple-200 text-purple-700'
+      case 'analysis':
+        return 'from-orange-100 to-orange-200 text-orange-700'
       default:
         return 'from-gray-100 to-gray-200 text-gray-700'
     }
@@ -66,14 +70,31 @@ export default function ProductList() {
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case '제조 솔루션':
-        return '🔧'
-      case 'IT 솔루션':
-        return '💻'
-      case '컨설팅':
+      case 'chamber':
+        return '🏠'
+      case 'equipment':
+        return '⚙️'
+      case 'testing':
+        return '🔬'
+      case 'analysis':
         return '📊'
       default:
         return '📦'
+    }
+  }
+
+  const getCategoryName = (category: string) => {
+    switch (category) {
+      case 'chamber':
+        return '챔버 시스템'
+      case 'equipment':
+        return '시험 장비'
+      case 'testing':
+        return '시험 솔루션'
+      case 'analysis':
+        return '분석 장비'
+      default:
+        return category
     }
   }
 
@@ -115,13 +136,10 @@ export default function ProductList() {
           </div>
           <div className="space-y-2">
             <h3 className="text-xl font-semibold">{product.name}</h3>
-            <p className="text-gray-600 text-sm">{product.description}</p>
-            <div className="flex justify-between items-center pt-2">
+            <p className="text-gray-600 text-sm">{product.index_description}</p>
+            <div className="pt-2">
               <span className="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded text-sm">
-                {product.category}
-              </span>
-              <span className="font-bold text-blue-900">
-                {formatPrice(product.price)}
+                {getCategoryName(product.category)}
               </span>
             </div>
           </div>

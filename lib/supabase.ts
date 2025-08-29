@@ -14,7 +14,10 @@ export type Database = {
           created_at: string
           name: string
           email: string
+          phone?: string
+          company?: string
           message: string
+          inquiry_type: 'product' | 'quotation' | 'support' | 'general'
           status: 'new' | 'processing' | 'completed'
         }
         Insert: {
@@ -22,7 +25,10 @@ export type Database = {
           created_at?: string
           name: string
           email: string
+          phone?: string
+          company?: string
           message: string
+          inquiry_type?: 'product' | 'quotation' | 'support' | 'general'
           status?: 'new' | 'processing' | 'completed'
         }
         Update: {
@@ -30,7 +36,10 @@ export type Database = {
           created_at?: string
           name?: string
           email?: string
+          phone?: string
+          company?: string
           message?: string
+          inquiry_type?: 'product' | 'quotation' | 'support' | 'general'
           status?: 'new' | 'processing' | 'completed'
         }
       }
@@ -38,31 +47,108 @@ export type Database = {
         Row: {
           id: number
           created_at: string
+          product_id: string
           name: string
+          category: 'chamber' | 'equipment' | 'testing' | 'analysis'
+          main_image: string
+          images: string[]
+          index_description: string
           description: string
-          category: string
-          price: number | null
-          image_url: string | null
+          details: string[]
+          specifications: {
+            label: string
+            value: string
+          }[]
+          temperature_range?: string
+          humidity_range?: string
+          capacity?: string
+          standards: string[]
+          download_url?: string
           is_active: boolean
         }
         Insert: {
           id?: never
           created_at?: string
+          product_id: string
           name: string
+          category: 'chamber' | 'equipment' | 'testing' | 'analysis'
+          main_image: string
+          images?: string[]
+          index_description: string
           description: string
-          category: string
-          price?: number | null
-          image_url?: string | null
+          details?: string[]
+          specifications?: {
+            label: string
+            value: string
+          }[]
+          temperature_range?: string
+          humidity_range?: string
+          capacity?: string
+          standards?: string[]
+          download_url?: string
           is_active?: boolean
         }
         Update: {
           id?: never
           created_at?: string
+          product_id?: string
           name?: string
+          category?: 'chamber' | 'equipment' | 'testing' | 'analysis'
+          main_image?: string
+          images?: string[]
+          index_description?: string
           description?: string
-          category?: string
-          price?: number | null
-          image_url?: string | null
+          details?: string[]
+          specifications?: {
+            label: string
+            value: string
+          }[]
+          temperature_range?: string
+          humidity_range?: string
+          capacity?: string
+          standards?: string[]
+          download_url?: string
+          is_active?: boolean
+        }
+      }
+      installations: {
+        Row: {
+          id: number
+          created_at: string
+          client_name: string
+          project_title: string
+          location: string
+          installation_date: string
+          products_used: string[]
+          description: string
+          images: string[]
+          is_featured: boolean
+          is_active: boolean
+        }
+        Insert: {
+          id?: never
+          created_at?: string
+          client_name: string
+          project_title: string
+          location: string
+          installation_date: string
+          products_used: string[]
+          description: string
+          images?: string[]
+          is_featured?: boolean
+          is_active?: boolean
+        }
+        Update: {
+          id?: never
+          created_at?: string
+          client_name?: string
+          project_title?: string
+          location?: string
+          installation_date?: string
+          products_used?: string[]
+          description?: string
+          images?: string[]
+          is_featured?: boolean
           is_active?: boolean
         }
       }

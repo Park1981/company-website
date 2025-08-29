@@ -1,0 +1,133 @@
+{
+  "majorClients": [
+    {
+      "id": "nier",
+      "name": "국립환경과학원",
+      "englishName": "National Institute of Environmental Research",
+      "logo": "https://nier.go.kr/NIER/assets/kor/images/common/logo.png",
+      "category": "government",
+      "description": "환경 연구 및 정책 지원 전문기관",
+      "website": "https://nier.go.kr"
+    },
+    {
+      "id": "kofpi",
+      "name": "한국산업진흥원",
+      "englishName": "Korea Federation of SMEs",
+      "logo": "https://www.kofpi.or.kr/resources/img/common/new_logo_on.png",
+      "category": "government",
+      "description": "중소기업 지원 전문기관",
+      "website": "https://www.kofpi.or.kr"
+    },
+    {
+      "id": "samsung",
+      "name": "삼성전자",
+      "englishName": "Samsung Electronics",
+      "logo": "https://www.samsung.com/etc.clientlibs/samsung/clientlibs/consumer/global/clientlib-common/resources/images/gnb-desktop-120x32.png",
+      "category": "enterprise",
+      "description": "글로벌 전자기업",
+      "website": "https://www.samsung.com"
+    },
+    {
+      "id": "lg",
+      "name": "LG전자",
+      "englishName": "LG Electronics",
+      "logo": "https://www.lge.co.kr/lg5-common/images/header/lg_logo_new.svg",
+      "category": "enterprise",
+      "description": "글로벌 전자기업",
+      "website": "https://www.lge.co.kr"
+    },
+    {
+      "id": "kcl",
+      "name": "한국건설생활환경시험연구원",
+      "englishName": "Korea Conformity Laboratories",
+      "logo": "https://www.kcl.re.kr/files/web1/images/common/logo.png",
+      "category": "research",
+      "description": "건설생활환경 시험연구 전문기관",
+      "website": "https://www.kcl.re.kr"
+    },
+    {
+      "id": "ktr",
+      "name": "한국화학융합시험연구원",
+      "englishName": "Korea Testing & Research Institute",
+      "logo": "https://www.ktr.or.kr/common/images/logo.png",
+      "category": "research",
+      "description": "화학융합 시험연구 전문기관",
+      "website": "https://www.ktr.or.kr"
+    },
+    {
+      "id": "ktc",
+      "name": "한국기계전기전자시험연구원",
+      "englishName": "Korea Testing Certification",
+      "logo": "/images/clients/ktc.jpg",
+      "category": "research",
+      "description": "기계전기전자 시험연구 전문기관",
+      "website": "https://www.ktc.re.kr"
+    },
+    {
+      "id": "sgs",
+      "name": "한국에스지에스",
+      "englishName": "SGS Korea",
+      "logo": "https://pds.saramin.co.kr/company/logo/201902/26/pnhqu4_qxsk-0_logo.JPG",
+      "category": "testing",
+      "description": "글로벌 검증, 시험, 인증 서비스 전문기업",
+      "website": "https://www.sgs.com"
+    },
+    {
+      "id": "fiti",
+      "name": "FITI시험연구원",
+      "englishName": "Fashion Industry Testing Institute",
+      "logo": "https://fiti.re.kr/data/img/common/tlogo.gif",
+      "category": "research",
+      "description": "패션산업 시험연구 전문기관",
+      "website": "https://fiti.re.kr"
+    }
+  ],
+  "clientCategories": {
+    "government": {
+      "name": "정부기관",
+      "color": "#2563eb",
+      "description": "국가 연구기관 및 정부 산하 기관"
+    },
+    "enterprise": {
+      "name": "대기업",
+      "color": "#dc2626",
+      "description": "글로벌 대기업 및 상장기업"
+    },
+    "research": {
+      "name": "연구기관",
+      "color": "#059669",
+      "description": "시험연구 및 인증 전문기관"
+    },
+    "testing": {
+      "name": "시험인증기관",
+      "color": "#7c2d12",
+      "description": "글로벌 시험인증 서비스 기업"
+    }
+  },
+  "statistics": {
+    "totalClients": 150,
+    "majorProjects": 45,
+    "satisfactionRate": 98.5,
+    "yearsSinceEstablishment": 22
+  },
+  "testimonials": [
+    {
+      "client": "국립환경과학원",
+      "message": "유니태크의 챔버 시스템은 정확성과 신뢰성이 뛰어나며, 연구 효율성을 크게 향상시켰습니다.",
+      "position": "연구관",
+      "rating": 5
+    },
+    {
+      "client": "삼성전자",
+      "message": "고객 맞춤형 설계와 신속한 사후지원으로 항상 만족스러운 결과를 얻고 있습니다.",
+      "position": "품질관리팀장",
+      "rating": 5
+    },
+    {
+      "client": "한국건설생활환경시험연구원",
+      "message": "복잡한 시험 조건에도 안정적으로 작동하는 믿을 수 있는 파트너입니다.",
+      "position": "시험부장",
+      "rating": 5
+    }
+  ]
+}

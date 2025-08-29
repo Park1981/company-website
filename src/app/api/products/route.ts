@@ -1,53 +1,37 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '../../../../lib/supabase'
+import productsData from '../../../data/products.json'
 
 export async function GET() {
   try {
-    // 데모 모드인 경우 샘플 데이터 반환
+    // 데모 모드인 경우 실제 제품 데이터 반환
     if (process.env.NEXT_PUBLIC_DEMO_MODE === 'true') {
-      const sampleProducts = [
-        {
-          id: 1,
-          name: 'MFC-1000 시리즈',
-          description: '고정밀 질량 유량 제어기로 반도체 공정에 최적화된 제품입니다.',
-          category: '제조 솔루션',
-          price: 5000000,
-          image_url: null,
-          is_active: true,
-          created_at: new Date().toISOString()
-        },
-        {
-          id: 2,
-          name: '스마트 팩토리 솔루션',
-          description: 'AI 기반 생산 최적화 및 실시간 모니터링 시스템입니다.',
-          category: 'IT 솔루션',
-          price: 15000000,
-          image_url: null,
-          is_active: true,
-          created_at: new Date().toISOString()
-        },
-        {
-          id: 3,
-          name: '프로세스 컨설팅',
-          description: '제조 공정 분석 및 효율성 개선을 위한 전문 컨설팅 서비스입니다.',
-          category: '컨설팅',
-          price: null,
-          image_url: null,
-          is_active: true,
-          created_at: new Date().toISOString()
-        },
-        {
-          id: 4,
-          name: 'IoT 센서 시스템',
-          description: '실시간 데이터 수집 및 분석을 위한 통합 센서 솔루션입니다.',
-          category: 'IT 솔루션',
-          price: 8000000,
-          image_url: null,
-          is_active: true,
-          created_at: new Date().toISOString()
-        }
-      ]
-      return NextResponse.json({ success: true, data: sampleProducts })
+      // JSON 데이터를 데이터베이스 스키마에 맞게 변환
+      const transformedProducts = productsData.products.map((product, index) => ({
+        id: index + 1,
+        created_at: new Date().toISOString(),
+        product_id: product.id,
+        name: product.name,
+        category: product.category,
+        main_image: product.main_image,
+        images: product.images,
+        index_description: product.index_description,
+        description: product.description,
+        details: product.details,
+        specifications: product.specifications,
+        temperature_range: product.temperature_range,
+        humidity_range: product.humidity_range,
+        capacity: product.capacity,
+        standards: product.standards,
+        download_url: product.download_url,
+        is_active: product.is_active
+      }))
+      
+      return NextResponse.json({ 
+        success: true, 
+        data: transformedProducts,
+        categories: productsData.productCategories
+      })
     }
 
     // 실제 Supabase에서 데이터 조회
@@ -65,7 +49,11 @@ export async function GET() {
       )
     }
 
-    return NextResponse.json({ success: true, data })
+    return NextResponse.json({ 
+      success: true, 
+      data,
+      categories: productsData.productCategories 
+    })
 
   } catch (error) {
     console.error('API 에러:', error)
