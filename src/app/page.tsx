@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import ProductList from "../components/ProductList";
 import ContactForm from "../components/ContactForm";

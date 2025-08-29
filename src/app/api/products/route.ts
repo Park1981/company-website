@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '../../../../lib/supabase'
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     // 데모 모드인 경우 샘플 데이터 반환
     if (process.env.NEXT_PUBLIC_DEMO_MODE === 'true') {
