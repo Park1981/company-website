@@ -1,5 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import ProductList from "../components/ProductList";
+import ContactForm from "../components/ContactForm";
+import { Toaster } from "react-hot-toast";
 
 export default function Home() {
   return (
@@ -12,7 +15,7 @@ export default function Home() {
               <Link href="/" className="text-2xl font-bold text-blue-900">
                 UNITECH
               </Link>
-              <span className="ml-2 text-sm text-gray-500">㈜유니텍</span>
+              <span className="ml-2 text-sm text-gray-500">유니태크 주식회사</span>
             </div>
             <div className="hidden md:flex space-x-8">
               <Link href="#about" className="text-gray-700 hover:text-blue-900 transition">회사소개</Link>
@@ -30,7 +33,7 @@ export default function Home() {
             혁신적인 기술로 미래를 만들어갑니다
           </h1>
           <p className="text-xl md:text-2xl mb-8 opacity-90">
-            ㈜유니텍은 최첨단 기술력과 품질로 고객의 성공을 함께 만들어갑니다
+유니태크 주식회사는 최첨단 기술력과 품질로 고객의 성공을 함께 만들어갑니다
           </p>
           <div className="space-x-4">
             <Link 
@@ -55,7 +58,7 @@ export default function Home() {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">회사소개</h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              ㈜유니텍은 고품질의 기술 솔루션을 제공하는 전문 기업으로, 
+              유니태크 주식회사는 고품질의 기술 솔루션을 제공하는 전문 기업으로, 
               지속적인 연구개발을 통해 고객만족을 실현하고 있습니다.
             </p>
           </div>
@@ -96,31 +99,7 @@ export default function Home() {
             <p className="text-lg text-gray-600">다양한 분야의 전문 솔루션을 제공합니다</p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition">
-              <div className="h-48 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg mb-4 flex items-center justify-center">
-                <span className="text-4xl text-blue-900">🔧</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">제조 솔루션</h3>
-              <p className="text-gray-600">고품질 제조 장비 및 자동화 시스템</p>
-            </div>
-            
-            <div className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition">
-              <div className="h-48 bg-gradient-to-br from-green-100 to-green-200 rounded-lg mb-4 flex items-center justify-center">
-                <span className="text-4xl text-green-700">💻</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">IT 솔루션</h3>
-              <p className="text-gray-600">맞춤형 소프트웨어 개발 및 시스템 통합</p>
-            </div>
-            
-            <div className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition">
-              <div className="h-48 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg mb-4 flex items-center justify-center">
-                <span className="text-4xl text-purple-700">📊</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">컨설팅</h3>
-              <p className="text-gray-600">전문적인 기술 컨설팅 및 프로세스 최적화</p>
-            </div>
-          </div>
+          <ProductList />
         </div>
       </section>
 
@@ -165,41 +144,7 @@ export default function Home() {
               </div>
             </div>
             
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h3 className="font-semibold text-lg mb-4">문의 양식</h3>
-              <form className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">이름</label>
-                  <input 
-                    type="text" 
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="이름을 입력하세요"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">이메일</label>
-                  <input 
-                    type="email" 
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="이메일을 입력하세요"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">메시지</label>
-                  <textarea 
-                    rows={4}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="메시지를 입력하세요"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-blue-900 text-white py-2 px-4 rounded-md hover:bg-blue-800 transition font-medium"
-                >
-                  문의 보내기
-                </button>
-              </form>
-            </div>
+            <ContactForm />
           </div>
         </div>
       </section>
@@ -209,13 +154,14 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="text-2xl font-bold mb-2">UNITECH</div>
-            <p className="text-gray-400 mb-4">㈜유니텍 - 혁신적인 기술 파트너</p>
+            <p className="text-gray-400 mb-4">유니태크 주식회사 - 혁신적인 기술 파트너</p>
             <p className="text-sm text-gray-500">
               © 2025 UNITECH Co., Ltd. All rights reserved.
             </p>
           </div>
         </div>
       </footer>
+      <Toaster position="top-right" />
     </div>
   );
 }
